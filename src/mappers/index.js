@@ -14,6 +14,15 @@ export const MAPPERS = {
   7: AxROM,
 };
 
+export const MAPPER_NAMES = {
+  0: 'NROM',
+  1: 'MMC1 (SxROM)',
+  2: 'UxROM',
+  3: 'CNROM',
+  4: 'MMC3 (TxROM)',
+  7: 'AxROM',
+};
+
 export function createMapper(cart, nes) {
   const Board = MAPPERS[cart.mapper];
   if (!Board) throw new Error(`Mapper ${cart.mapper} is not supported yet`);
