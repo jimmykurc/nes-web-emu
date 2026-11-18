@@ -17,3 +17,5 @@ jobs:
         run: sh scripts/fetch-test-roms.sh
       - name: Run tests
         run: node --test
+      - name: Bundled game ROMs match their source
+        run: node tools/build-games.js --check

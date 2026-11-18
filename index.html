@@ -86,7 +86,7 @@
       <div class="statusbar">
         <div class="rom">
           <strong id="rom-name">No cartridge</strong>
-          <span id="rom-meta">Load a .nes file you own to start playing.</span>
+          <span id="rom-meta">Pick a game in the library, or load a .nes file you own.</span>
         </div>
         <div class="stats"><span id="rom-crc"></span><span id="fps" class="fps">— FPS</span></div>
       </div>
@@ -109,6 +109,12 @@
     </section>
 
     <aside class="panel">
+      <section class="card">
+        <h2>Game library</h2>
+        <p class="small muted">Free games you can play right now, no download needed.</p>
+        <ul class="library" id="library"></ul>
+      </section>
+
       <section class="card">
         <h2>Controls</h2>
         <table class="keys">
@@ -151,7 +157,7 @@
   </main>
 
   <footer class="footer">
-    <p>No games are included. Only load ROM files you are legally allowed to use, such as homebrew or dumps of cartridges you own. Everything runs locally in your browser; nothing is uploaded.</p>
+    <p>The game library only contains original games from this project and homebrew games whose licenses allow redistribution (see <a href="https://github.com/jimmykurc/nes-web-emu/tree/main/roms">roms/</a>). Only load other ROM files you are legally allowed to use, such as dumps of cartridges you own. Everything runs locally in your browser; nothing is uploaded.</p>
     <p>NES and Nintendo Entertainment System are trademarks of Nintendo. This project is not affiliated with Nintendo. · MIT License · © 2026 Jimmy Kurc</p>
   </footer>
 

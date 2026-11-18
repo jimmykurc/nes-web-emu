@@ -11,7 +11,7 @@ A Nintendo Entertainment System emulator written in plain, modern JavaScript (ES
 
 ![NES Web Emu running in the browser](docs/screenshot.png)
 
-No games are included. Load a `.nes` file you are allowed to use (homebrew, or a dump of a cartridge you own) with the **Load ROM** button or by dropping it on the page. Everything runs locally; nothing is uploaded.
+The **game library** on the page plays games straight from the site, no download needed: **Pixel Viper**, an original snake game written for this project in 6502 assembly (see below), plus free homebrew games whose licenses allow redistribution (notices in [`roms/README.md`](roms/README.md)). You can also load any `.nes` file you are allowed to use with the **Load ROM** button or by dropping it on the page. Everything runs locally; nothing is uploaded.
 
 ## Features
 
@@ -100,6 +100,17 @@ These public test ROMs run headlessly in the test suite. All of them pass:
 - No Zapper, Power Pad or Four Score, and no rewind or netplay.
 - Compatibility with commercial games has not been measured systematically here (the repository ships no ROMs). The supported boards are exercised by the test ROMs above.
 
+## Pixel Viper, the bundled original game
+
+[`games/pixel-viper/viper.asm`](games/pixel-viper/viper.asm) is an original NROM game (MIT): a snake on a 16x15 grid of 16x16-pixel cells. Every cell is a 2x2-tile metatile in the background; the main loop queues nametable updates and the NMI handler copies them to the PPU during vblank. It is built by a small two-pass 6502 assembler in this repository ([`tools/asm6502.js`](tools/asm6502.js)), and its tiles and 5x7 font are drawn as text in [`tools/build-games.js`](tools/build-games.js):
+
+```sh
+node tools/build-games.js           # writes roms/pixel-viper.nes
+node tools/build-games.js --check   # CI: the committed ROM matches the source
+```
+
+Controls: **Start** (Enter) to play, the d-pad (arrows) to steer. Every apple adds three segments and the snake speeds up every four apples.
+
 ## Running locally
 
 The project is plain static files, so any web server works:
@@ -122,11 +133,11 @@ npm run fetch-test-roms   # optional: downloads public test ROMs into test-roms/
 node --test               # or: npm test
 ```
 
-Without the test ROMs, the CPU unit tests (instruction semantics, flags, cycle counts, dummy reads, interrupts), the mapper tests and the whole-system tests (frame timing, audio sample rate, controller, save-state determinism) still run, and the ROM-based suites are skipped. CI downloads the ROMs and runs everything on every push: 88 tests, all passing.
+Without the test ROMs, the CPU unit tests (instruction semantics, flags, cycle counts, dummy reads, interrupts), the mapper tests and the whole-system tests (frame timing, audio sample rate, controller, save-state determinism) still run, and the ROM-based suites are skipped. CI downloads the ROMs and runs everything on every push: 93 tests, all passing, including the assembler and a scripted play-through of Pixel Viper.
 
 ## Legal
 
-This is an independent educational project and is not affiliated with Nintendo. "Nintendo Entertainment System" and "NES" are trademarks of Nintendo. The repository contains no Nintendo code and no copyrighted game ROMs. The test ROMs used by the test suite (by blargg, kevtris and others) are downloaded from their public mirror at test time and are not redistributed here. Only use ROM files you have the right to use.
+This is an independent educational project and is not affiliated with Nintendo. "Nintendo Entertainment System" and "NES" are trademarks of Nintendo. The repository contains no Nintendo code and no commercial game ROMs; the games in `roms/` are original or freely redistributable homebrew. The test ROMs used by the test suite (by blargg, kevtris and others) are downloaded from their public mirror at test time and are not redistributed here. Only use ROM files you have the right to use.
 
 ## License
 

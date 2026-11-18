@@ -7,6 +7,7 @@ import { AudioOutput } from './audio.js';
 import { Input, bindTouchPad } from './input.js';
 import { IdleScreen } from './idle.js';
 import { storage } from './storage.js';
+import { LIBRARY } from './library.js';
 
 const FRAME_MS = 1000 / 60.0988;
 const $ = (sel) => document.querySelector(sel);
@@ -264,6 +265,40 @@ bindTouchPad($('#touchpad'), input);
 // Mapper table in the side panel
 $('#mapper-list').innerHTML = Object.entries(MAPPER_NAMES)
   .map(([n, name]) => `<li><span class="num">${n}</span>${name}</li>`).join('');
+
+// ---------------------------------------------------------- game library
+
+async function loadFromUrl(path, name) {
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await loadRomBytes(new Uint8Array(await res.arrayBuffer()), name);
+  } catch (err) {
+    toast(`Could not load ${name}: ${err.message}`, 'error');
+  }
+}
+
+const libraryList = $('#library');
+for (const game of LIBRARY) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <button class="game" type="button">
+      <span class="game-title"></span>
+      <span class="game-genre"></span>
+      <span class="game-meta"></span>
+    </button>
+    <a class="game-src" target="_blank" rel="noopener">source</a>`;
+  li.querySelector('.game-title').textContent = game.title + (game.original ? ' ★' : '');
+  li.querySelector('.game-genre').textContent = game.genre;
+  li.querySelector('.game-meta').textContent = `${game.author} · ${game.license}`;
+  li.querySelector('.game-src').href = game.source;
+  li.querySelector('.game').addEventListener('click', () => {
+    audio.start();
+    loadFromUrl(game.file, game.title);
+    $('#screen').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  libraryList.append(li);
+}
 
 // Optional ?rom=relative/path.nes (same-origin only), handy for local testing.
 const romParam = new URLSearchParams(location.search).get('rom');
