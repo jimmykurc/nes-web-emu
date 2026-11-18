@@ -284,4 +284,4 @@ updatePads();
 requestAnimationFrame(loop);
 
 // Expose for debugging in the console.
-window.nesEmu = { get nes() { return nes; } };
+window.nesEmu = { get nes() { return nes; }, audio };

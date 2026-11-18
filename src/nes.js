@@ -153,7 +153,8 @@ export class NES {
       ram: snapshot({ ram: this.ram, openBus: this.openBus }),
       cpu: snapshot(this.cpu),
       ppu: snapshot(this.ppu),
-      apu: snapshot(this.apu),
+      // Host audio settings (sample rate, filters) stay with the running session.
+      apu: snapshot(this.apu, ['sampleRate', 'rateAdjust', 'sampleClock', 'sampleCount', 'hp1a', 'hp2a', 'lpa']),
       mapper: snapshot(this.mapper, mapperSkip),
       controllers: this.controllers.map((c) => snapshot(c)),
     };
