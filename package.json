@@ -1,0 +1,16 @@
+{
+  "name": "nes-web-emu",
+  "version": "1.0.0",
+  "description": "A cycle-stepped NES emulator written in modern JavaScript, running in the browser with no build step.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Jimmy Kurc",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 8080",
+    "fetch-test-roms": "sh scripts/fetch-test-roms.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

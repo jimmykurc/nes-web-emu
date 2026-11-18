@@ -1,0 +1,5 @@
+test-roms/
+*.nes
+!tests/fixtures/*.nes
+.DS_Store
+node_modules/
