@@ -286,12 +286,14 @@ for (const game of LIBRARY) {
       <span class="game-title"></span>
       <span class="game-genre"></span>
       <span class="game-meta"></span>
+      <span class="game-note" hidden></span>
     </button>
     <a class="game-src" target="_blank" rel="noopener">source</a>`;
   li.querySelector('.game-title').textContent = game.title + (game.original ? ' ★' : '');
   li.querySelector('.game-genre').textContent = game.genre;
   li.querySelector('.game-meta').textContent = `${game.author} · ${game.license}`;
   li.querySelector('.game-src').href = game.source;
+  if (game.note) Object.assign(li.querySelector('.game-note'), { hidden: false, textContent: '⚠ ' + game.note });
   li.querySelector('.game').addEventListener('click', () => {
     audio.start();
     loadFromUrl(game.file, game.title);

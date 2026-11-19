@@ -11,7 +11,7 @@ A Nintendo Entertainment System emulator written in plain, modern JavaScript (ES
 
 ![NES Web Emu running in the browser](docs/screenshot.png)
 
-The **game library** on the page plays games straight from the site, no download needed: **Pixel Viper**, an original snake game written for this project in 6502 assembly (see below), plus free homebrew games whose licenses allow redistribution (notices in [`roms/README.md`](roms/README.md)). You can also load any `.nes` file you are allowed to use with the **Load ROM** button or by dropping it on the page. Everything runs locally; nothing is uploaded.
+The **game library** on the page plays games straight from the site, no download needed: **Pixel Viper**, an original snake game written for this project in 6502 assembly (see below), plus six free homebrew games whose licenses allow redistribution: Thwaite, Concentration Room, robotfindskitten and RHDE: Furniture Fight by Damian Yerrick, 2048 by mmuszkow, and Nova the Squirrel by NovaSquirrel. Credits, licenses and source links are in [`roms/README.md`](roms/README.md). You can also load any `.nes` file you are allowed to use with the **Load ROM** button or by dropping it on the page. Everything runs locally; nothing is uploaded.
 
 ## Features
 
@@ -133,7 +133,7 @@ npm run fetch-test-roms   # optional: downloads public test ROMs into test-roms/
 node --test               # or: npm test
 ```
 
-Without the test ROMs, the CPU unit tests (instruction semantics, flags, cycle counts, dummy reads, interrupts), the mapper tests and the whole-system tests (frame timing, audio sample rate, controller, save-state determinism) still run, and the ROM-based suites are skipped. CI downloads the ROMs and runs everything on every push: 93 tests, all passing, including the assembler and a scripted play-through of Pixel Viper.
+Without the test ROMs, the CPU unit tests (instruction semantics, flags, cycle counts, dummy reads, interrupts), the mapper tests and the whole-system tests (frame timing, audio sample rate, controller, save-state determinism) still run, and the ROM-based suites are skipped. CI downloads the ROMs and runs everything on every push: 100 tests, all passing, including the assembler, a scripted play-through of Pixel Viper and a boot check of every game in the library.
 
 ## Legal
 
